@@ -48,7 +48,7 @@ const Navbar = () => {
                       active ? "text-white" : "text-slate-500"
                     }`}
                   />
-                  <span>{item.label}</span>
+                  <span className="hidden sm:inline">{item.label}</span>
                 </Link>
               );
             })}

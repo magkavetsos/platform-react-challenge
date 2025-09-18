@@ -1,10 +1,15 @@
 import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useInfiniteRandomImages } from "./hooks";
 import type { CatImage } from "./api";
+import ImageModal from "./ImageModal";
 
 const ImagesView = () => {
   const LIMIT = 10;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedId = searchParams.get("id");
+
   const {
     data,
     isLoading,
@@ -34,7 +39,7 @@ const ImagesView = () => {
             Random Cat Images
           </h1>
           <button
-            className="px-4 py-2 rounded-lg bg-slate-800 text-white disabled:opacity-50"
+            className="px-4 py-2 rounded-lg bg-slate-800 text-white disabled:opacity-50 cursor-pointer"
             disabled={isFetching || isFetchingNextPage}
             aria-label="Refresh images"
             onClick={() =>
@@ -52,7 +57,10 @@ const ImagesView = () => {
         {isError && (
           <div className="text-red-600">
             {error?.message ?? "Failed to load images"}
-            <button onClick={() => refetch()} className="ml-2 underline">
+            <button
+              onClick={() => refetch()}
+              className="ml-2 underline cursor-pointer"
+            >
               Retry
             </button>
           </div>
@@ -62,7 +70,8 @@ const ImagesView = () => {
           {images.map((img) => (
             <div
               key={img.id}
-              className="overflow-hidden rounded-lg bg-white shadow"
+              className="overflow-hidden rounded-lg bg-white shadow cursor-pointer"
+              onClick={() => setSearchParams({ id: img.id })}
             >
               <img
                 src={img.url}
@@ -80,7 +89,7 @@ const ImagesView = () => {
 
         <div className="mt-6">
           <button
-            className="w-full sm:w-auto px-4 py-2 rounded-lg bg-slate-800 text-white disabled:opacity-50"
+            className="w-full sm:w-auto px-4 py-2 rounded-lg bg-slate-800 text-white disabled:opacity-50 cursor-pointer"
             disabled={isFetchingNextPage || isFetching}
             aria-label="Load more images"
             onClick={() => fetchNextPage()}
@@ -89,6 +98,10 @@ const ImagesView = () => {
           </button>
         </div>
       </div>
+
+      {selectedId && (
+        <ImageModal id={selectedId} onClose={() => setSearchParams({})} />
+      )}
     </div>
   );
 };
