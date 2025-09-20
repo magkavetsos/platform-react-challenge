@@ -50,6 +50,7 @@ export default function BreedModal({
                 <img
                   src={img.url}
                   alt={img.id}
+                  loading="lazy"
                   className="w-full h-32 object-cover"
                 />
               </Link>
