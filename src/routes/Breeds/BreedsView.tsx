@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useBreeds } from "./hooks";
 import type { Breed } from "./hooks";
+import BreedModal from "./BreedModal";
 
-function BreedCard({ breed }: { breed: Breed }) {
+function BreedCard({ breed, onOpen }: { breed: Breed; onOpen?: () => void }) {
   const [showMore, setShowMore] = useState(false);
   const description = breed.description ?? "";
   const teaser = description.slice(0, 140);
@@ -18,7 +19,10 @@ function BreedCard({ breed }: { breed: Breed }) {
   ];
 
   return (
-    <article className="breed-card bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col h-full">
+    <article
+      className="breed-card bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col h-full cursor-pointer"
+      onClick={onOpen}
+    >
       <div className="flex items-start justify-between gap-4">
         <div>
           <h3 className="text-lg font-semibold text-slate-900">{breed.name}</h3>
@@ -107,6 +111,7 @@ function Metric({ label, value }: { label: string; value: number }) {
 
 const BreedsView = () => {
   const { data: breeds, isLoading, isError } = useBreeds();
+  const [selected, setSelected] = useState<Breed | null>(null);
 
   return (
     <div className="min-h-screen-minus-header">
@@ -120,9 +125,16 @@ const BreedsView = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {breeds?.map((b: Breed) => (
-            <BreedCard key={b.id} breed={b} />
+            <BreedCard key={b.id} breed={b} onOpen={() => setSelected(b)} />
           ))}
         </div>
+        {selected && (
+          <BreedModal
+            breedId={selected.id}
+            title={selected.name}
+            onClose={() => setSelected(null)}
+          />
+        )}
       </div>
     </div>
   );

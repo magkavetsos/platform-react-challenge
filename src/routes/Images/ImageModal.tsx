@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Copy, ExternalLink, X } from "lucide-react";
 import { useImageById } from "./hooks";
+import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
 
 export default function ImageModal({
   id,
@@ -24,12 +25,7 @@ export default function ImageModal({
     { label: "Weight", value: `${breed?.weight.metric} kg` },
   ];
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, []);
+  useLockBodyScroll();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(window.location.href);
