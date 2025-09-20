@@ -76,7 +76,7 @@ const ImagesView = () => {
               <img
                 src={img.url}
                 alt="Cat"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover hover:scale-130 duration-600 transition-transform"
                 loading="lazy"
               />
             </div>

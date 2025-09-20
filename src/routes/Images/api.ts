@@ -3,8 +3,6 @@ export type CatImage = {
   url: string;
   width: number;
   height: number;
-  favourite?: object;
-  breeds?: [];
 };
 
 const BASE_URL = import.meta.env?.VITE_API_BASE_URL;
