@@ -14,14 +14,14 @@ export default function ImageModal({
   const breed = image?.breeds?.[0];
 
   const stats = [
-    { label: "Origin", value: breed.origin },
-    { label: "Life span", value: `${breed.life_span} yrs` },
-    { label: "Temperament", value: breed.temperament },
-    { label: "Adaptability", value: `${breed.adaptability}/5` },
-    { label: "Child friendly", value: `${breed.child_friendly}/5` },
-    { label: "Dog friendly", value: `${breed.dog_friendly}/5` },
-    { label: "Energy", value: `${breed.energy_level}/5` },
-    { label: "Weight", value: `${breed.weight.metric} kg` },
+    { label: "Origin", value: breed?.origin },
+    { label: "Life span", value: `${breed?.life_span} yrs` },
+    { label: "Temperament", value: breed?.temperament },
+    { label: "Adaptability", value: `${breed?.adaptability}/5` },
+    { label: "Child friendly", value: `${breed?.child_friendly}/5` },
+    { label: "Dog friendly", value: `${breed?.dog_friendly}/5` },
+    { label: "Energy", value: `${breed?.energy_level}/5` },
+    { label: "Weight", value: `${breed?.weight.metric} kg` },
   ];
 
   useEffect(() => {
