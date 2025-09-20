@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Copy, ExternalLink, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useImageById } from "./hooks";
 import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
 
@@ -80,6 +81,12 @@ export default function ImageModal({
 
               {breed && (
                 <div className="p-4 space-y-3">
+                  <Link
+                    to={`/breeds?id=${encodeURIComponent(breed.id)}`}
+                    className="inline-block text-sm text-slate-600 hover:text-slate-800 transition hover:underline"
+                  >
+                    View more images and details for this breed
+                  </Link>
                   <p className="text-sm text-slate-700">{breed.description}</p>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {stats.map((s) => (
@@ -93,7 +100,7 @@ export default function ImageModal({
                       rel="noreferrer"
                       className="inline-flex items-center gap-1 mt-2 text-slate-600 hover:text-slate-800 transition text-sm"
                     >
-                      <span>Learn more</span> <ExternalLink size={18} />
+                      <span>Wikipedia</span> <ExternalLink size={18} />
                     </a>
                   )}
                 </div>

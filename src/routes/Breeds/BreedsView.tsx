@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useBreeds } from "./hooks";
 import type { Breed } from "./hooks";
 import BreedModal from "./BreedModal";
+import { useSearchParams } from "react-router-dom";
 
 function BreedCard({ breed, onOpen }: { breed: Breed; onOpen?: () => void }) {
   const [showMore, setShowMore] = useState(false);
@@ -111,7 +112,8 @@ function Metric({ label, value }: { label: string; value: number }) {
 
 const BreedsView = () => {
   const { data: breeds, isLoading, isError } = useBreeds();
-  const [selected, setSelected] = useState<Breed | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedId = searchParams.get("id");
 
   return (
     <div className="min-h-screen-minus-header">
@@ -125,14 +127,18 @@ const BreedsView = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {breeds?.map((b: Breed) => (
-            <BreedCard key={b.id} breed={b} onOpen={() => setSelected(b)} />
+            <BreedCard
+              key={b.id}
+              breed={b}
+              onOpen={() => setSearchParams({ id: b.id })}
+            />
           ))}
         </div>
-        {selected && (
+        {selectedId && (
           <BreedModal
-            breedId={selected.id}
-            title={selected.name}
-            onClose={() => setSelected(null)}
+            breedId={selectedId}
+            title={breeds?.find((b: Breed) => b.id === selectedId)?.name}
+            onClose={() => setSearchParams({})}
           />
         )}
       </div>
