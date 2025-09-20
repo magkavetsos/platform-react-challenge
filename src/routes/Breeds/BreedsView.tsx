@@ -66,7 +66,10 @@ function BreedCard({ breed, onOpen }: { breed: Breed; onOpen?: () => void }) {
         {hasMore && (
           <button
             type="button"
-            onClick={() => setShowMore((s) => !s)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowMore((s) => !s);
+            }}
             className="mt-2 text-xs text-slate-700 hover:underline cursor-pointer font-semibold"
             aria-expanded={showMore}
           >
@@ -83,6 +86,7 @@ function BreedCard({ breed, onOpen }: { breed: Breed; onOpen?: () => void }) {
               target="_blank"
               rel="noreferrer"
               className="underline"
+              onClick={(e) => e.stopPropagation()}
             >
               Wikipedia
             </a>
