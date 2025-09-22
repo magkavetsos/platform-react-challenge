@@ -10,6 +10,7 @@ export function useInfiniteRandomImages(limit = 10) {
       return { page: pageParam, items };
     },
     getNextPageParam: (last) => last.page + 1,
+    staleTime: 1000 * 60 * 5
   });
 }
 

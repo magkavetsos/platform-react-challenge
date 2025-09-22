@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useInfiniteRandomImages } from "./hooks";
@@ -23,12 +22,6 @@ const ImagesView = () => {
   } = useInfiniteRandomImages(LIMIT);
 
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries({ queryKey: ["images", "random", LIMIT] });
-    };
-  }, [queryClient, LIMIT]);
 
   const images: CatImage[] = data?.pages.flatMap((p) => p.items) ?? [];
 
@@ -77,18 +70,20 @@ const ImagesView = () => {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
           {images.map((img) => (
-            <div
+            <button
               key={img.id}
-              className="overflow-hidden rounded-lg bg-white shadow cursor-pointer"
+              className="overflow-hidden rounded-lg bg-white shadow cursor-pointer p-0"
               onClick={() => setSearchParams({ id: img.id })}
+              aria-label="View image in modal"
             >
               <img
                 src={img.url}
                 alt="Cat"
+                role="button"
                 className="w-full h-48 object-cover hover:scale-130 duration-600 transition-transform"
                 loading="lazy"
               />
-            </div>
+            </button>
           ))}
         </div>
 

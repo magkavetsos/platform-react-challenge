@@ -76,7 +76,14 @@ export default function ImageModal({
         </div>
 
         <div className="overflow-y-auto">
-          {isLoading && <div className="p-6 text-slate-600">Loading...</div>}
+          {isLoading && (
+            <div className="bg-slate-50 relative animate-pulse">
+              <div className="w-full h-64 bg-slate-200 rounded-md" />
+              <div className="flex justify-center p-4 border-b border-slate-200 bg-slate-50">
+                <div className="flex items-center gap-2 px-4 py-2 bg-slate-200 rounded-lg w-40 h-10" />
+              </div>
+            </div>
+          )}
           {isError && (
             <div className="p-6 text-red-600">
               {error?.message ?? "Error loading cat"}
