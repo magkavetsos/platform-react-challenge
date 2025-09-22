@@ -53,7 +53,9 @@ export default function ImageModal({
   const isMutating = addFav.isPending || deleteFav.isPending;
 
   const handleToggleFav = () => {
-    if (isFaved) deleteFav.mutate(String(favEntry!.id));
+    if (isMutating) return;
+
+    if (isFaved) deleteFav.mutate(String(favEntry.id));
     else addFav.mutate(image.id);
   };
 
