@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Breed } from "../../types";
+import type { Breed } from "../../../types";
 
 function Metric({ label, value }: { label: string; value: number }) {
   const pct = Math.round((value / 5) * 100);

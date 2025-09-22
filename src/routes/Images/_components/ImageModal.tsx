@@ -5,10 +5,10 @@ import {
   useFavorites,
   useAddFavorite,
   useDeleteFavorite,
-} from "../Favorites/hooks";
-import { useImageById } from "./hooks";
-import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
-import type { Favorite } from "../../types";
+} from "../../Favorites/hooks";
+import { useImageById } from "../hooks";
+import { useLockBodyScroll } from "../../../hooks/useLockBodyScroll";
+import type { Favorite } from "../../../types";
 
 export default function ImageModal({
   id,

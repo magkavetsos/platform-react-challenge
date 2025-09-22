@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
 import { useBreeds } from "./hooks";
 import type { Breed } from "../../types";
-import BreedModal from "./BreedModal";
+import BreedModal from "./_components/BreedModal";
 import { useSearchParams } from "react-router-dom";
 import { useDebounce } from "../../hooks/useDebounce";
-import SearchBar from "./SearchBar";
-import BreedCard from "./BreedCard";
-import SkeletonCard from "./SkeletonCard";
+import SearchBar from "./_components/SearchBar";
+import BreedCard from "./_components/BreedCard";
+import SkeletonCard from "./_components/SkeletonCard";
 
 const BreedsView = () => {
   const { data: breeds, isLoading, isError } = useBreeds();

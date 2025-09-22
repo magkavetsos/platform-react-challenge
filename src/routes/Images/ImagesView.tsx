@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useInfiniteRandomImages } from "./hooks";
 import type { CatImage } from "../../types";
-import ImageModal from "./ImageModal";
+import ImageModal from "./_components/ImageModal";
 
 const ImagesView = () => {
   const LIMIT = 10;

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
-import type { Favorite } from "../../types";
+import type { Favorite } from "../../../types";
 
 const FavoriteCard = ({
   fav,

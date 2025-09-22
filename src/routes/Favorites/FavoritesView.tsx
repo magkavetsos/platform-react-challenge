@@ -1,8 +1,8 @@
 import { useFavorites, useDeleteFavorite } from "./hooks";
 import type { Favorite } from "../../types";
-import EmptyState from "./EmptyState";
-import FavoriteSkeleton from "./FavoriteSkeleton";
-import FavoriteCard from "./FavoriteCard";
+import EmptyState from "./_components/EmptyState";
+import FavoriteSkeleton from "./_components/FavoriteSkeleton";
+import FavoriteCard from "./_components/FavoriteCard";
 
 export default function FavoritesView() {
   const { data: favorites, isLoading, isError } = useFavorites();

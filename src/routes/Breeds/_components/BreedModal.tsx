@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
-import { useBreedImages } from "./hooks";
+import { useBreedImages } from "../hooks";
 import { Link } from "react-router-dom";
-import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
+import { useLockBodyScroll } from "../../../hooks/useLockBodyScroll";
 
 export default function BreedModal({
   breedId,
