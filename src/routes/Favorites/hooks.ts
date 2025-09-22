@@ -1,6 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchFavorites, addFavorite, deleteFavorite } from "./api";
 
+export type Fav = {
+  id: number;
+  image_id: string;
+  image?: { id: string; url: string };
+};
+
 export function useFavorites() {
   return useQuery({
     queryKey: ["favorites"],
