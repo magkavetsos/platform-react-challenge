@@ -4,6 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useInfiniteRandomImages } from "./hooks";
 import type { CatImage } from "../../types";
 import ImageModal from "./_components/ImageModal";
+import ImagesSkeleton from "./_components/ImagesSkeleton";
 
 const ImagesView = () => {
   const LIMIT = 10;
@@ -52,7 +53,15 @@ const ImagesView = () => {
           </button>
         </div>
 
-        {isLoading && <div className="text-slate-600">Loading images...</div>}
+        {isLoading && (
+          <div className="text-slate-600">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <ImagesSkeleton key={i} />
+              ))}
+            </div>
+          </div>
+        )}
 
         {isError && (
           <div className="text-red-600">
