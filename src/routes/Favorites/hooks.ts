@@ -27,7 +27,7 @@ export function useAddFavorite() {
       ]);
       return { previousFavorites };
     },
-    onError: (err, image_id, context) => {
+    onError: (_, __, context) => {
       qc.setQueryData(["favorites"], context?.previousFavorites);
     },
     onSettled: () => {
@@ -48,7 +48,7 @@ export function useDeleteFavorite() {
       );
       return { previousFavorites };
     },
-    onError: (err, favorite_id, context) => {
+    onError: (_, __, context) => {
       qc.setQueryData(["favorites"], context?.previousFavorites);
     },
     onSettled: () => {
