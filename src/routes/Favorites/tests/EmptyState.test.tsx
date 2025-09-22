@@ -1,25 +1,19 @@
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { renderWithProviders } from "../../../test-utils";
+import { screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
 import EmptyState from "../_components/EmptyState";
 
 describe("EmptyState", () => {
-  it("renders heading and primary CTAs", () => {
-    render(
-      <MemoryRouter>
-        <EmptyState />
-      </MemoryRouter>
-    );
+  it("renders heading and primary links", () => {
+    renderWithProviders(<EmptyState />);
 
-    expect(
-      screen.getByRole("heading", { name: /No favorites yet/i })
-    ).toBeInTheDocument();
+    const heading = screen.getByRole("heading", { name: /no favorites yet/i });
+    expect(heading).toBeInTheDocument();
 
-    expect(
-      screen.getByRole("link", { name: /Browse random cats/i })
-    ).toHaveAttribute("href", "/");
+    const browse = screen.getByRole("link", { name: /browse random cats/i });
+    expect(browse).toHaveAttribute("href", "/");
 
-    expect(
-      screen.getByRole("link", { name: /Explore breeds/i })
-    ).toHaveAttribute("href", "/breeds");
+    const breeds = screen.getByRole("link", { name: /explore breeds/i });
+    expect(breeds).toHaveAttribute("href", "/breeds");
   });
 });

@@ -1,7 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithProviders } from "../../../test-utils";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
-import { MemoryRouter } from "react-router-dom";
 import FavoriteCard from "../_components/FavoriteCard";
 
 describe("FavoriteCard", () => {
@@ -17,13 +17,9 @@ describe("FavoriteCard", () => {
       },
     };
 
-    render(
-      <MemoryRouter>
-        <FavoriteCard fav={fav} onRemove={onRemove} />
-      </MemoryRouter>
-    );
+    renderWithProviders(<FavoriteCard fav={fav} onRemove={onRemove} />);
 
-    const btn = screen.getByRole("button", { name: /Remove favorite/i });
+    const btn = screen.getByRole("button", { name: /remove favorite/i });
     await user.click(btn);
     expect(onRemove).toHaveBeenCalledWith(232546712);
   });
