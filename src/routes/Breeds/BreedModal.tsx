@@ -44,7 +44,7 @@ export default function BreedModal({
             {images?.map((img: { id: string; url: string }) => (
               <Link
                 key={img.id}
-                to={`/?id=${img.id}`}
+                to={`/?id=${encodeURIComponent(img.id)}`}
                 className="block rounded overflow-hidden"
               >
                 <img

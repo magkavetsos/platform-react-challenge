@@ -1,8 +1,14 @@
 import { useState } from "react";
-import { Copy, ExternalLink, X } from "lucide-react";
+import { Copy, ExternalLink, X, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  useFavorites,
+  useAddFavorite,
+  useDeleteFavorite,
+} from "../Favorites/hooks";
 import { useImageById } from "./hooks";
 import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
+import type { Fav } from "./api";
 
 export default function ImageModal({
   id,
@@ -15,16 +21,18 @@ export default function ImageModal({
   const { data: image, isLoading, isError, error } = useImageById(id);
   const breed = image?.breeds?.[0];
 
-  const stats = [
-    { label: "Origin", value: breed?.origin },
-    { label: "Life span", value: `${breed?.life_span} yrs` },
-    { label: "Temperament", value: breed?.temperament },
-    { label: "Adaptability", value: `${breed?.adaptability}/5` },
-    { label: "Child friendly", value: `${breed?.child_friendly}/5` },
-    { label: "Dog friendly", value: `${breed?.dog_friendly}/5` },
-    { label: "Energy", value: `${breed?.energy_level}/5` },
-    { label: "Weight", value: `${breed?.weight.metric} kg` },
-  ];
+  const stats = breed
+    ? [
+        { label: "Origin", value: breed.origin },
+        { label: "Life span", value: `${breed.life_span} yrs` },
+        { label: "Temperament", value: breed.temperament },
+        { label: "Adaptability", value: `${breed.adaptability}/5` },
+        { label: "Child friendly", value: `${breed.child_friendly}/5` },
+        { label: "Dog friendly", value: `${breed.dog_friendly}/5` },
+        { label: "Energy", value: `${breed.energy_level}/5` },
+        { label: "Weight", value: `${breed.weight.metric} kg` },
+      ]
+    : [];
 
   useLockBodyScroll();
 
@@ -35,6 +43,19 @@ export default function ImageModal({
   };
 
   const displayName = isLoading ? "" : breed?.name ?? "Mystery Cat";
+
+  const { data: favorites } = useFavorites();
+  const addFav = useAddFavorite();
+  const deleteFav = useDeleteFavorite();
+
+  const favEntry = favorites?.find((f: Fav) => f.image_id === image?.id);
+  const isFaved = !!favEntry;
+  const isMutating = addFav.isPending || deleteFav.isPending;
+
+  const handleToggleFav = () => {
+    if (isFaved) deleteFav.mutate(favEntry!.id);
+    else addFav.mutate(image.id);
+  };
 
   return (
     <div
@@ -61,12 +82,30 @@ export default function ImageModal({
           )}
           {image && (
             <>
-              <div className="bg-slate-50">
+              <div className="bg-slate-50 relative">
                 <img
                   src={image.url}
                   alt={breed?.name ?? "Cat Image"}
                   className="w-full h-64 object-cover"
                 />
+
+                <button
+                  onClick={handleToggleFav}
+                  aria-pressed={isFaved}
+                  aria-label={
+                    isFaved ? "Remove from favorites" : "Add to favorites"
+                  }
+                  disabled={isMutating}
+                  className="absolute right-3 top-3 z-20 p-1 rounded-full bg-white/80 hover:bg-white text-slate-700 disabled:opacity-60 transition cursor-pointer"
+                  type="button"
+                >
+                  <Heart
+                    className={`w-6 h-6 ${
+                      isFaved ? "text-rose-500" : "text-slate-700"
+                    }`}
+                    {...(isFaved ? { fill: "currentColor" } : {})}
+                  />
+                </button>
               </div>
 
               <div className="flex justify-center p-4 border-b border-slate-200 bg-slate-50">
