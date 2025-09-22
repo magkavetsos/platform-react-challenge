@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { useBreeds, type Breed } from "./hooks";
+import { useBreeds } from "./hooks";
+import type { Breed } from "../../types";
 import BreedModal from "./BreedModal";
 import { useSearchParams } from "react-router-dom";
 import { useDebounce } from "../../hooks/useDebounce";

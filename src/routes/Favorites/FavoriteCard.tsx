@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
-import type { Fav } from "./hooks";
+import type { Favorite } from "../../types";
 
 const FavoriteCard = ({
   fav,
   onRemove,
 }: {
-  fav: Fav;
+  fav: Favorite;
   onRemove: (id: number) => void;
 }) => {
   const imageUrl = fav.image?.url;
@@ -37,7 +37,7 @@ const FavoriteCard = ({
 
       <button
         type="button"
-        aria-label="Remove favourite"
+        aria-label="Remove favorite"
         className="absolute top-2 right-2 inline-flex items-center justify-center w-9 h-9 rounded-md bg-white/80 hover:bg-white text-slate-700 cursor-pointer"
         onClick={(e) => {
           e.stopPropagation();

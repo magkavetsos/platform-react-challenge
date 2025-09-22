@@ -1,4 +1,5 @@
-import { useFavorites, useDeleteFavorite, type Fav } from "./hooks";
+import { useFavorites, useDeleteFavorite } from "./hooks";
+import type { Favorite } from "../../types";
 import EmptyState from "./EmptyState";
 import FavoriteSkeleton from "./FavoriteSkeleton";
 import FavoriteCard from "./FavoriteCard";
@@ -57,7 +58,7 @@ export default function FavoritesView() {
         <h1 className="text-xl font-semibold text-slate-800 mb-6">Favorites</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {favorites.map((f: Fav) => (
+          {favorites.map((f: Favorite) => (
             <FavoriteCard key={f.id} fav={f} onRemove={handleRemove} />
           ))}
         </div>

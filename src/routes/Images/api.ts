@@ -1,12 +1,3 @@
-export type CatImage = {
-  id: string;
-  url: string;
-  width: number;
-  height: number;
-};
-
- export type Fav = { id: number; image_id: string };
-
 const BASE_URL = import.meta.env?.VITE_API_BASE_URL;
 
 export async function fetchRandomImages(limit: number) {

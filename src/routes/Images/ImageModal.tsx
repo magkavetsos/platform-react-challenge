@@ -8,7 +8,7 @@ import {
 } from "../Favorites/hooks";
 import { useImageById } from "./hooks";
 import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
-import type { Fav } from "./api";
+import type { Favorite } from "../../types";
 
 export default function ImageModal({
   id,
@@ -48,12 +48,12 @@ export default function ImageModal({
   const addFav = useAddFavorite();
   const deleteFav = useDeleteFavorite();
 
-  const favEntry = favorites?.find((f: Fav) => f.image_id === image?.id);
+  const favEntry = favorites?.find((f: Favorite) => f.image_id === image?.id);
   const isFaved = !!favEntry;
   const isMutating = addFav.isPending || deleteFav.isPending;
 
   const handleToggleFav = () => {
-    if (isFaved) deleteFav.mutate(favEntry!.id);
+    if (isFaved) deleteFav.mutate(String(favEntry!.id));
     else addFav.mutate(image.id);
   };
 

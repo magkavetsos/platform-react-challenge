@@ -13,7 +13,7 @@ const EmptyState = () => {
           No favorites yet
         </h2>
         <p className="text-sm text-slate-600 mb-6">
-          Save your favourite cat images and they will appear here.
+          Save your favorite cat images and they will appear here.
         </p>
 
         <div className="flex items-center justify-center gap-3">
